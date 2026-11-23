@@ -1,0 +1,6 @@
+# Read by R at startup during the Renku renv buildpack's renv::restore().
+# `fs` (pulled in transitively via shiny -> bslib -> sass) compiles from source
+# in the buildpack and needs libuv dev headers, which the build image lacks.
+# This flag makes fs build its own bundled libuv, so no system -dev package is
+# required. Without it the failure cascades: fs -> sass -> bslib -> shiny.
+USE_BUNDLED_LIBUV=1
